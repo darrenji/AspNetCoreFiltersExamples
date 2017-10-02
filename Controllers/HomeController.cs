@@ -4,11 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
+using AspNetCoreFiltersExamples.Infrastructure;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace AspNetCoreFiltersExamples.Controllers
 {
+    [HttpsOnly]
     public class HomeController : Controller
     {
         // GET: /<controller>/
@@ -35,10 +37,11 @@ namespace AspNetCoreFiltersExamples.Controllers
         //    } 
         //}
 
-        [RequireHttps]
-        public ViewResult Index()
-        {
-            return View("Message", "This is the Index action on the Home Controller");
-        }
+        //使用特性过滤
+        //[RequireHttps]
+        //public ViewResult Index()
+        //{
+        //    return View("Message", "This is the Index action on the Home Controller");
+        //}
     }
 }
