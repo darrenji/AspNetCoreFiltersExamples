@@ -18,16 +18,27 @@ namespace AspNetCoreFiltersExamples.Controllers
         //}
 
 
-        public IActionResult Index()
+         
+        /// <summary>
+        /// 在Action中过滤
+        /// </summary>
+        /// <returns></returns>
+        //public IActionResult Index()
+        //{
+        //    if(!Request.IsHttps)
+        //    {
+        //        return new StatusCodeResult(StatusCodes.Status403Forbidden);
+        //    }
+        //    else
+        //    {
+        //       return View("Message", "This is the Index action on the Home Controller");
+        //    } 
+        //}
+
+        [RequireHttps]
+        public ViewResult Index()
         {
-            if(!Request.IsHttps)
-            {
-                return new StatusCodeResult(StatusCodes.Status403Forbidden);
-            }
-            else
-            {
-                return View("Message", "This is the Index action on the Home Controller");
-            }
+            return View("Message", "This is the Index action on the Home Controller");
         }
     }
 }
