@@ -27,8 +27,9 @@ namespace AspNetCoreFiltersExamples
             services.AddScoped<ViewResultDiagnostics>();//实现IActionFilter接口，使用IFilterDiagnostics记录
             services.AddScoped<DiagnosticsFilter>();//实现IAsyncResultFilter接口，把IFilterDiagnostics的字符串集合响应出去
             services.AddMvc().AddMvcOptions(options => {
-                options.Filters.AddService(typeof(ViewResultDiagnostics));
-                options.Filters.AddService(typeof(DiagnosticsFilter));
+                //options.Filters.AddService(typeof(ViewResultDiagnostics));
+                //options.Filters.AddService(typeof(DiagnosticsFilter));
+                options.Filters.Add(new MessageAttribute("This is the Globally-Scoped Filter"));
             });
         }
 

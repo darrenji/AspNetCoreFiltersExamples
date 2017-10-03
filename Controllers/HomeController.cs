@@ -16,8 +16,9 @@ namespace AspNetCoreFiltersExamples.Controllers
     //[RangeException]
     //[TypeFilter(typeof(DiagnosticsFilter))]
     //[TypeFilter(typeof(TimeFilter))]
-    [TypeFilter(typeof(DiagnosticsFilter))]
-    [ServiceFilter(typeof(TimeFilter))]
+    //[TypeFilter(typeof(DiagnosticsFilter))]
+    //[ServiceFilter(typeof(TimeFilter))]
+    [Message("This is the Controller-Scoped Filter", Order =10)]
     public class HomeController : Controller
     {
         // GET: /<controller>/
@@ -51,6 +52,8 @@ namespace AspNetCoreFiltersExamples.Controllers
         //    return View("Message", "This is the Index action on the Home Controller");
         //}
 
+        [Message("This is the first Action-Scoped Filter", Order =1)]
+        [Message("This is the second Action-Scoped Filter", Order =-1)]
         public ViewResult Index()
         {
             return View("Message", "This is the Index action on the Home Controller");
