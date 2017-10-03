@@ -19,9 +19,17 @@ namespace AspNetCoreFiltersExamples
         {
             //services.AddScoped<IFilterDiagnostics, DefaultFilterDiagnostics>();
 
-            services.AddSingleton<IFilterDiagnostics, DefaultFilterDiagnostics>();
-            services.AddSingleton<TimeFilter>();
-            services.AddMvc();
+            //services.AddSingleton<IFilterDiagnostics, DefaultFilterDiagnostics>();
+            //services.AddSingleton<TimeFilter>();
+
+            services.AddScoped<IFilterDiagnostics, DefaultFilterDiagnostics>();//把诊断信息放到字符串集合中
+            services.AddScoped<TimeFilter>(); //实现IAsyncResultFilter接口，使用IFilterDiagnostics记录
+            services.AddScoped<ViewResultDiagnostics>();//实现IActionFilter接口，使用IFilterDiagnostics记录
+            services.AddScoped<DiagnosticsFilter>();//实现IAsyncResultFilter接口，把IFilterDiagnostics的字符串集合响应出去
+            services.AddMvc().AddMvcOptions(options => {
+                options.Filters.AddService(typeof(ViewResultDiagnostics));
+                options.Filters.AddService(typeof(DiagnosticsFilter));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
