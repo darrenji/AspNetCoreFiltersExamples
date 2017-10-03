@@ -1,0 +1,40 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace AspNetCoreFiltersExamples.Infrastructure
+{
+    public class ViewResultDetailsAttribute : ResultFilterAttribute
+    {
+        public override void OnResultExecuting(ResultExecutingContext context)
+        {
+            Dictionary<string, string> dict = new Dictionary<string, string> {
+                ["Result Type"] = context.Result.GetType().Name
+            };
+
+            ViewResult vr;
+            //ResultExecutingContext也可以获取到IActioResult
+            if((vr=context.Result as ViewResult) != null)
+            {
+                dict["View Name"] = vr.ViewName;
+                dict["Model Type"] = vr.ViewData.Model.GetType().Name;
+                dict["Model Data"] = vr.ViewData.Model.ToString();
+            }
+
+            context.Result = new ViewResult
+            {
+                ViewName = "Message",
+                //ViewResult.ViewData是ViewDataDictionary类型
+                //ViewDataDictionary接受有关元数据的EmpryMoelMetadataProvider和有关模型验证的ModelStateDictionary
+                ViewData = new ViewDataDictionary(new EmptyModelMetadataProvider(), new ModelStateDictionary()) {
+                    Model = dict
+                }
+            };
+        }
+    }
+}

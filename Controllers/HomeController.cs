@@ -11,7 +11,8 @@ using AspNetCoreFiltersExamples.Infrastructure;
 namespace AspNetCoreFiltersExamples.Controllers
 {
     //[HttpsOnly]
-    [Profile]
+    //[Profile]
+    [ViewResultDetails]
     public class HomeController : Controller
     {
         // GET: /<controller>/
