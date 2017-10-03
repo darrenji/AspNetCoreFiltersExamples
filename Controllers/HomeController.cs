@@ -12,7 +12,8 @@ namespace AspNetCoreFiltersExamples.Controllers
 {
     //[HttpsOnly]
     //[Profile]
-    [ViewResultDetails]
+    //[ViewResultDetails]
+    [RangeException]
     public class HomeController : Controller
     {
         // GET: /<controller>/
@@ -49,6 +50,20 @@ namespace AspNetCoreFiltersExamples.Controllers
         public ViewResult Index()
         {
             return View("Message", "This is the Index action on the Home Controller");
+        }
+
+        public ViewResult GenerateException(int? id)
+        {
+            if (id == null)
+            {
+                throw new ArgumentNullException(nameof(id));
+            } else if(id > 10)
+            {
+                throw new ArgumentOutOfRangeException(nameof(id));
+            } else
+            {
+                return View("Message", $"The value is {id}");
+            }
         }
     }
 }
