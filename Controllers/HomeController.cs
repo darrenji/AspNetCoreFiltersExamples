@@ -10,7 +10,8 @@ using AspNetCoreFiltersExamples.Infrastructure;
 
 namespace AspNetCoreFiltersExamples.Controllers
 {
-    [HttpsOnly]
+    //[HttpsOnly]
+    [Profile]
     public class HomeController : Controller
     {
         // GET: /<controller>/
@@ -43,5 +44,10 @@ namespace AspNetCoreFiltersExamples.Controllers
         //{
         //    return View("Message", "This is the Index action on the Home Controller");
         //}
+
+        public ViewResult Index()
+        {
+            return View("Message", "This is the Index action on the Home Controller");
+        }
     }
 }
