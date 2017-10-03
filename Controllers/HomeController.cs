@@ -13,7 +13,9 @@ namespace AspNetCoreFiltersExamples.Controllers
     //[HttpsOnly]
     //[Profile]
     //[ViewResultDetails]
-    [RangeException]
+    //[RangeException]
+    [TypeFilter(typeof(DiagnosticsFilter))]
+    [TypeFilter(typeof(TimeFilter))]
     public class HomeController : Controller
     {
         // GET: /<controller>/
